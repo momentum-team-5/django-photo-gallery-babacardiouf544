@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<h2><center>List of Gallerries</center></h2>
+
+<div>
+    {% for gallerry in galleries %}
+    <div class="flex-item">
+        <p>{{ gallery.title }} {{ gallery.date_created }} {{ gallery.is_private }}</p>
+        
+
+
+    </div>
+</div>
+{% endblock %}
