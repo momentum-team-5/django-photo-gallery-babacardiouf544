@@ -2,15 +2,18 @@
 
 
 {% block content %}
-<h2><center>List of Gallerries</center></h2>
+<h2>List of Galleries</h2>
 
 <div>
-    {% for gallerry in galleries %}
+    {% for gallery in galleries %}
     <div class="flex-item">
+        {% if request.user.is_authenticated and request.user == gallery.user %}
         <p>{{ gallery.title }} {{ gallery.date_created }} {{ gallery.is_private }}</p>
-        
-
-
+        <button><a href="{% url 'add_photo' %}">Add Photo</a></button> 
+        <button><a href="{% url 'gallery_delete' pk=gallery.pk %}">Delete Gallery</a></button>
+        <button><a href="{% url 'gallery_detail' pk=gallery.pk %}">Gallery detail</a></button>     
+        {% endif %}
     </div>
+    {% endfor %}
 </div>
 {% endblock %}

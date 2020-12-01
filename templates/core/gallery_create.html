@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2><center>Create a New Gallery!</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p}}
+        <input type="submit" value="Save Gallery">
+    </form>
+
+
+{% endblock %}

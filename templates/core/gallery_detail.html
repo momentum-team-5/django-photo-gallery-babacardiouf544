@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2><center>Your Gallery Details</h2>
+    <h4 class="gallery_title">{{ gallery.title }} {{ gallery.date_created }}  {{ gallery.is_private }}</h4>
+    {% for photo in gallery.photos.all %}
+    <img src='{{ photo.image_large.url }}'/>
+    {% endfor %}
+
+    
+         
+
+{% endblock %}

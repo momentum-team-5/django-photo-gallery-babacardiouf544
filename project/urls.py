@@ -24,9 +24,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("accounts/", include("registration.backends.default.urls")),
     path('', core_views.gallery_list, name="gallery_list"),
-    #path('gallery/<int:pk>/', core_views.gallery_detail, name="gallery_detail"),
-    #path('gallery/create/', core_views.gallery_create, name="gallery_create"),
+    path('gallery/<int:pk>/', core_views.gallery_detail, name="gallery_detail"),
+    path('gallery/create/', core_views.gallery_create, name="gallery_create"),
     path('gallery/<int:pk>/delete/', core_views.gallery_delete, name="gallery_delete"),
+    path('photo/add_photo', core_views.add_photo, name="add_photo"),
+    path('photo/list_photo/', core_views.list_photo, name="list_photo"),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
