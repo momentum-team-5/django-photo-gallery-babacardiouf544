@@ -2,13 +2,15 @@
 
 {% block content %}
 
-<h2><center>Your Gallery Details</h2>
-    <h4 class="gallery_title">{{ gallery.title }} {{ gallery.date_created }}  {{ gallery.is_private }}</h4>
+<h2>Your Gallery Details</h2>
+    <h4 class="gallery_title">{{ gallery.title }} {{ gallery.date_created }} {{ description }}</h4>
     {% for photo in gallery.photos.all %}
-    <img src='{{ photo.image_large.url }}'/>
+    <p><img src='{{ photo.image_medium.url }}'/></p>
+    <p><button><a href = "{% url 'delete_photo' pk=photo.pk%}">Delete Photo</a></button></p>
     {% endfor %}
-
-    
-         
+{% if request.user.is_authenticated and gallery.user == request.user%}
+<button><a href = "{% url 'add_photo' pk=photo.pk%}">Add Photo</a></button>   
+          
+{%endif%}
 
 {% endblock %}

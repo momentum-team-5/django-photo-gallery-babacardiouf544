@@ -8,8 +8,12 @@
     {% for gallery in galleries %}
     <div class="flex-item">
         {% if request.user.is_authenticated and request.user == gallery.user %}
-        <p>{{ gallery.title }} {{ gallery.date_created }} {{ gallery.is_private }}</p>
-        <button><a href="{% url 'add_photo' %}">Add Photo</a></button> 
+        <p>{{ gallery.title }} {{ gallery.date_created }} {{description}}</p>
+        {% for photo in gallery.photos.all %}
+        <p><img src='{{ photo.image_thumbnail.url }}'/></p>   
+        <p><button><a href="{% url 'delete_photo' pk=photo.pk %}">Delete Photo</a></button></p>
+        {% endfor %}
+        <button><a href = "{% url 'add_photo' pk=gallery.pk %}">Add Photo</a></button>       
         <button><a href="{% url 'gallery_delete' pk=gallery.pk %}">Delete Gallery</a></button>
         <button><a href="{% url 'gallery_detail' pk=gallery.pk %}">Gallery detail</a></button>     
         {% endif %}

@@ -2,7 +2,7 @@
 
 {% block content %}
 <h2> Do you want to Delete your Gallery?</h2>
-<p class="gallery_tittle">{{ gallery.title }} {{ gallery.date_created }}  {{ gallery.is_private }}</p>
+<p class="gallery_tittle">{{ gallery.title }} {{ gallery.date_created }}</p>
 <form method="POST">
   {% csrf_token %}
   <input type="submit" value="Delete Gallery">

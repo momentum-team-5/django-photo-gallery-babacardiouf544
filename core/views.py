@@ -20,9 +20,9 @@ def gallery_delete(request, pk):
 
     if request.method == "POST":
         gallery.delete()
-        return redirect("gallery_list")
+        return redirect(to = "gallery_list")
 
-    return render(request, "core/gallery_delete", {"gallery": gallery})
+    return render(request, "core/gallery_delete.html", {"gallery": gallery})
 
 @login_required
 def gallery_create(request):
@@ -39,26 +39,35 @@ def gallery_create(request):
     return render(request, 'core/gallery_create.html', {'form': form})
 
 
+
 @login_required
 def list_photo(request):
     photos = request.user.photos.all()
     return render(request, 'core/list_photo.html', {'photos': photos})
 
 @login_required
-def add_photo(request):
-    if request.method == 'GET':
-        form = PhotoForm()
-    else:
-        form = PhotoForm(data=request.POST)
+def add_photo(request, pk):
+    gallery = get_object_or_404(request.user.galleries, pk=pk)
+
+    if request.method == 'POST':
+        form = PhotoForm(data=request.POST, files=request.FILES)
         if form.is_valid():
             photo = form.save(commit=False)
-            photo.user = request.user
+            photo.gallery = gallery
             photo.save()
-            return redirect(list_photo)
+            return redirect('gallery_detail', pk=pk)            
+    else:
+        form = PhotoForm(data=request.POST)
     
-    return render(request, 'core/add_photo.html', {'form': form})
+    return render(request, 'core/add_photo.html', {'form': form, 'gallery': gallery})
 
-
+@login_required
+def delete_photo(request, pk):
+    photo = get_object_or_404(Photo, pk=pk)
+    if request.method == "GET":
+        photo.delete()
+        return redirect('gallery_list')
+    return render (request, 'core/delete_photo.html', {'photo': photo})
 
 
 
